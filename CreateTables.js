@@ -78,11 +78,11 @@ db.run("CREATE TABLE products (pID INTEGER PRIMARY KEY, pName TEXT NOT NULL, pDe
     }
 
     const products = [
-        {"pID":0, "pName": "11.2R46 Alliance 350 TL 141D", "pDesc":"Belastningsindex:141<br>Hastighetsindex:D<br>Bredd:11.2<br>Profil:<br>Diameter:46<br>Mönster:350 ROW CROP R1<br>Övrigt:TL 141D**** (270/95R46)<br>Däcktyp:Traktor Radial", "pImg": "/img/387.png"},
-        {"pID":1, "pName": "12.5R20 Alliance 300 TL 132G", "pDesc":"Belastningsindex:132<br>Hastighetsindex:G<br>Bredd:12.5<br>Profil:<br>Diameter:20<br>Mönster:300 MPT<br>Övrigt:TL 12PR/132G<br>Däcktyp:Multipurpose", "pImg": "/img/370.png"},
-        {"pID":2, "pName": "260/70R16 Trelleborg TM 700", "pDesc":"Dimension:260/70R16<br>märke:Trelleborg<br>Mönster:TM 700<br>Däcktyp:Traktor bakdäck", "pImg": "/img/386.png"},
-        {"pID":3, "pName": "750/65R26 Michelin Megaxbib", "pDesc":"Belastningsindex:171<br>Hastighetsindex:A8<br>Bredd:750<br>Profil:65<br>Diameter:26<br>Mönster:MEGAXBIB <br>Övrigt:<br>Däcktyp:Traktor Radial", "pImg": "/img/371.png"},
-        {"pID":4, "pName": "230/95R32 Trelleborg TM100", "pDesc":"Dimension:230/95R32<br>märke:Trelleborg<br>Mönster:TM100<br>Däcktyp:Traktor bakdäck", "pImg": "/img/372.png"}
+        {"pID":0, "pName": "11.2R46 Alliance 350 TL 141D", "pDesc":"Load index: 141<br>Speed index: D<br>Width: 11.2<br>Profile:<br>Diameter: 46<br>Pattern: 350 ROW CROP R1<br>Other: TL 141D**** (270/95R46)<br>Tire type: Tractor Radial", "pImg": "/img/387.png"},
+        {"pID":1, "pName": "12.5R20 Alliance 300 TL 132G", "pDesc":"Load index: 132<br>Speed index: G<br>Width: 12.5<br>Profile:<br>Diameter: 20<br>Pattern: 300 MPT<br>Other: TL 12PR/132G<br>Tire type: Multipurpose", "pImg": "/img/370.png"},
+        {"pID":2, "pName": "260/70R16 Trelleborg TM 700", "pDesc":"Dimension: 260/70R16<br>Brand: Trelleborg<br>Pattern: TM 700<br>Tire type: Tractor rear tire", "pImg": "/img/386.png"},
+        {"pID":3, "pName": "750/65R26 Michelin Megaxbib", "pDesc":"Load index: 171<br>Speed index: A8<br>Width: 750<br>Profile: 65<br>Diameter: 26<br>Pattern: MEGAXBIB<br>Other:<br>Tire type: Tractor Radial", "pImg": "/img/371.png"},
+        {"pID":4, "pName": "230/95R32 Trelleborg TM100", "pDesc":"Dimension: 230/95R32<br>Brand: Trelleborg<br>Pattern: TM100<br>Tire type: Tractor rear tire", "pImg": "/img/372.png"}
     ]
     products.forEach((product) => {
         db.run("INSERT INTO products (pID, pName, pDesc, pImg) VALUES (?, ?, ?, ?)", [
