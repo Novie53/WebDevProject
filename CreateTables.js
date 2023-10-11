@@ -52,11 +52,12 @@ db.run("CREATE TABLE businessPartners (bID INTEGER PRIMARY KEY, bName TEXT NOT N
         { "bID": 4, "bName": "Michelin", "bDesc": "Michelin is a renowned tire manufacturer known for its innovation, quality, and performance. With the iconic Michelin Man as its symbol, the company offers a wide range of tires for various vehicles. Michelin is also involved in travel guides and is committed to sustainability.", "bImg": "/img/Michelin.png", "bLink": "https://business.michelinman.com/tires/tractor-tires" },
     ]
     businessPartners.forEach((businessPartner) => {
-        db.run("INSERT INTO businessPartners (bID, bName, bDesc, bImg) VALUES (?, ?, ?, ?)", [
+        db.run("INSERT INTO businessPartners (bID, bName, bDesc, bImg, bLink) VALUES (?, ?, ?, ?, ?)", [
             businessPartner.bID,
             businessPartner.bName,
             businessPartner.bDesc,
-            businessPartner.bImg], (error) => {
+            businessPartner.bImg,
+            businessPartner.bLink], (error) => {
                 if (error) {
                     console.log("Error when inserting businessPartner into businessPartners table: ", error)
                 }
