@@ -1,3 +1,18 @@
-<div class="main">
+<div class="main" style="margin-left: 5%;">
     <h1>Products Page</h1>
+
+    Welcome to OLMA, your source for high-quality tractor tires. Find the perfect tire for your tractors and enhance
+    their performance in any terrain.<br> Browse our wide selection of sizes and tread patterns to suit your needs. Drive
+    with confidence and unlock the potential of your agricultural machinery.
+    <div class="flex-ProductList-Container">
+        {{#each productList}}
+        <div>
+            <p>
+                <a href="/product/{{pID}}"><img src="{{pImg}}" width="100px" height="100px">{{pName}}</a>
+            </p>
+        </div>
+        {{/each}}
+    </div>
+
+
 </div>
