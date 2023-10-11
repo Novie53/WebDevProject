@@ -33,6 +33,17 @@ app.get('/about', (req, res) => {
 app.get('/contact', (req, res) => {
     res.render('contact');
 });
+app.get('/partners', (req, res) => {
+    db.all("SELECT * FROM businessPartners", (err, rows) => {
+        if (err) {
+            res.status(500).json({ error: 'Server Error'});
+        }
+        else {
+            const model = {partnerList: rows};
+            res.render('partners', model);
+        }
+    });
+});
 app.get('/products', (req, res) => {
     db.all("SELECT * FROM products", (err, rows) => {
         if (err) {
