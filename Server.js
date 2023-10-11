@@ -34,6 +34,9 @@ app.get('/contact', (req, res) => {
 app.get('/products', (req, res) => {
     res.render('products');
 });
+app.use(function(req, res) {
+    res.status(404).render('404');
+})
 
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`);
