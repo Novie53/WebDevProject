@@ -36,7 +36,7 @@ db.run("CREATE TABLE users (pid INTEGER PRIMARY KEY, userName TEXT NOT NULL, pas
     })
 })
 
-db.run("CREATE TABLE businessPartners (bID INTEGER PRIMARY KEY, bName TEXT NOT NULL, bDesc TEXT NOT NULL, bImg TEXT NOT NULL)", (error) => {
+db.run("CREATE TABLE businessPartners (bID INTEGER PRIMARY KEY, bName TEXT NOT NULL, bDesc TEXT NOT NULL, bImg TEXT NOT NULL, bLink TEXT NOT NULL)", (error) => {
     if (error) {
         console.log("Error when creating businessPartners table: ", error);
     }
@@ -45,11 +45,11 @@ db.run("CREATE TABLE businessPartners (bID INTEGER PRIMARY KEY, bName TEXT NOT N
     }
 
     const businessPartners = [
-        {"bID":0, "bName": "IKEA", "bDesc":"IKEA is a Swedish multinational conglomerate that designs and sells ready-to-assemble furniture, kitchen appliances, decoration, home accessories, and various other goods and home services", "bImg": "/img/IKEA.png"},
-        {"bID":1, "bName": "Volvo", "bDesc":"Volvo is a Swedish automotive company known for its safe and innovative cars, trucks, buses, and construction equipment. With a commitment to sustainability, Volvo aims to transition to a fully electric vehicle lineup by 2030.", "bImg": "/img/Volvo.png"},
-        {"bID":2, "bName": "Saab", "bDesc":"Saab is a Swedish automobile company known for its unique design, engineering, and focus on safety. The brand also has a history of manufacturing military aircraft and commercial jets.", "bImg": "/img/Saab.png"},
-        {"bID":3, "bName": "Trelleborg", "bDesc":"Trelleborg is a Swedish engineering company specializing in polymer technology and innovative solutions for industries like automotive, aerospace, healthcare, and more. They are known for their expertise in sealing solutions, engineered coatings, and fluid handling systems. With a commitment to research and development, Trelleborg provides global support and sustainable solutions to meet customer needs.", "bImg": "/img/Trelleborg.png"},
-        {"bID":4, "bName": "Michelin", "bDesc":"Michelin is a renowned tire manufacturer known for its innovation, quality, and performance. With the iconic Michelin Man as its symbol, the company offers a wide range of tires for various vehicles. Michelin is also involved in travel guides and is committed to sustainability.", "bImg": "/img/Michelin.png"}
+        { "bID": 0, "bName": "IKEA", "bDesc": "IKEA is a Swedish multinational conglomerate that designs and sells ready-to-assemble furniture, kitchen appliances, decoration, home accessories, and various other goods and home services", "bImg": "/img/IKEA.jpg", "bLink": "https://www.ikea.com" },
+        { "bID": 1, "bName": "Volvo", "bDesc": "Volvo is a Swedish automotive company known for its safe and innovative cars, trucks, buses, and construction equipment. With a commitment to sustainability, Volvo aims to transition to a fully electric vehicle lineup by 2030.", "bImg": "/img/Volvo.jpg", "bLink": "https://www.volvocars.com/" },
+        { "bID": 2, "bName": "Saab", "bDesc": "Saab is a Swedish automobile company known for its unique design, engineering, and focus on safety. The brand also has a history of manufacturing military aircraft and commercial jets.", "bImg": "/img/Saab.png", "bLink": "https://www.saab.com/" },
+        { "bID": 3, "bName": "Trelleborg", "bDesc": "Trelleborg is a Swedish engineering company specializing in polymer technology and innovative solutions for industries like automotive, aerospace, healthcare, and more. They are known for their expertise in sealing solutions, engineered coatings, and fluid handling systems. With a commitment to research and development, Trelleborg provides global support and sustainable solutions to meet customer needs.", "bImg": "/img/Trelleborg.png", "bLink": "https://www.trelleborg-tires.com/" },
+        { "bID": 4, "bName": "Michelin", "bDesc": "Michelin is a renowned tire manufacturer known for its innovation, quality, and performance. With the iconic Michelin Man as its symbol, the company offers a wide range of tires for various vehicles. Michelin is also involved in travel guides and is committed to sustainability.", "bImg": "/img/Michelin.png", "bLink": "https://business.michelinman.com/tires/tractor-tires" },
     ]
     businessPartners.forEach((businessPartner) => {
         db.run("INSERT INTO businessPartners (bID, bName, bDesc, bImg) VALUES (?, ?, ?, ?)", [
