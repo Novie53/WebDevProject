@@ -74,6 +74,10 @@ body {
 	display: flex;
 	flex-direction: column;
 }
+#UD a {
+	color: black;
+}
+
 .flex-PartnerList-Container {
 	display: flex;
 	flex-direction: row;

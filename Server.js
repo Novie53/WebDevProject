@@ -155,11 +155,28 @@ app.get('/product/:id', function(req, res) {
         }
     });
 });
+app.get('/product/delete/:id', (req, res) => {
+    const id = req.params.id;
+    if (req.session.isLoggedIn == true && req.session.isAdmin == true) {
+        db.run("DELETE FROM products WHERE pID = ?", [id], function (error, theProduct) {
+            if (error) {
+                console.log("Error when trying to delete product with id ", id, " from products table: ", error);
+                res.redirect('/products');
+            }
+            else {
+                res.redirect('/products');
+            }
+        });
+    } else {
+        console.log("somebody without authentication tried to delete a product")
+        res.status(404).render('404');
+    }
+});
 
 app.use(function(req, res) {
     res.status(404).render('404');
-})
+});
 
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`);
-})
+});

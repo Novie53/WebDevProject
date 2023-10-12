@@ -7,13 +7,22 @@
         their performance in any terrain.<br> Browse our wide selection of sizes and tread patterns to suit your needs. Drive
         with confidence and unlock the potential of your agricultural machinery.
     </p>
-
+    {{#if isAdmin}}
+        <div id="UD">
+            <a href="/product/new"> New Product </a>
+        </div>
+    {{/if}}
     <div class="flex-ProductList-Container">
         {{#each productList}}
         <div>
             <p>
                 <a href="/product/{{pID}}"><img src="{{pImg}}" width="100px" height="100px">{{pName}}</a>
             </p>
+            {{#if ../isAdmin}}
+                <div id="UD">
+                    <a href="/product/update/{{pID}}"> Modify</a> - <a href="/product/delete/{{pID}}"> Delete </a>
+                </div>
+            {{/if}}
         </div>
         {{/each}}
     </div>
