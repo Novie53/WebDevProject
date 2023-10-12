@@ -2,27 +2,41 @@ body {
 	background-color: rgb(239, 239, 239);
 	margin: 0px;
 }
-.main {
-	margin-top: 40px;
+
+.menu-Container {
+	position: fixed;
+	top: 0px;
+	Width: 100%;
 }
-nav {
-	left: 0px;
-	top: 0;
-	text-align: center;
+.menu-Flex-Container {
+	display: flex;
 	background-color: grey;
 	padding-top: 10px;
 	padding-bottom: 10px;
-	position: fixed;
-	width: 100%;
+	justify-content: space-between;
+	flex-wrap: wrap;
 }
-nav a {
+.menu-Flex-Container nav a {
 	padding: 14px;
 	color: white;
 }
-nav a:hover {
+.menu-Flex-Container nav a:hover {
 	background: #ddd;
 	color: black;
-  }
+}
+.menu-Flex-Container #left {
+	flex: 2;
+}
+.menu-Flex-Container #right {
+	flex: 2;
+	text-align: right;
+}
+
+.main {
+	margin-top: 38px;
+}
+
+
 .quote-container {
 	background: url('/img/tractor.png');
 	height: 400px;
@@ -31,11 +45,6 @@ nav a:hover {
 	background-repeat: no-repeat;
 	color:white;
 	margin-bottom: 50px;
-	/*
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	*/
 }
 .centerImage {
 	display: block;
