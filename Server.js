@@ -206,6 +206,55 @@ app.post('/products/new', (req, res) => {
         res.redirect('/');
     }
 });
+app.get('/product/update/:id', (req, res) => {
+    const id = req.params.id;
+    db.get("SELECT * FROM products WHERE pid = ?", [id], function (error, theProduct) {
+        if (error) {
+            console.log("Error: ", error)
+            res.redirect('/');
+        }
+        else {
+            //console.log("MODIFY: ", JSON.stringify(theProduct));
+            //console.log("MODIFY: ", theProduct);
+            const model = {
+                isLoggedIn: req.session.isLoggedIn,
+                name: req.session.name,
+                isAdmin: req.session.isAdmin,
+                product: theProduct
+            }
+            res.render("modifyProduct.handlebars", model);
+        }
+    });
+});
+app.post('/product/update/:id', (req, res) => {
+    if (req.session.isLoggedIn == true && req.session.isAdmin == true) {
+        const id = req.params.id;
+        const modifiedProd = [req.body.prodName, req.body.prodDesc, req.body.prodImg, id];
+        db.run("UPDATE products SET pName = ?, pDesc = ?, pImg = ? WHERE pID = ?", modifiedProd, (error) => {
+            if (error) {
+                console.log("Error: ", error);
+            } else {
+                console.log("Product updated!");
+            }
+            res.redirect('/products');
+        });
+    }
+    else {
+        console.log("somebody without authentication tried to modify a product");
+        res.redirect('/');
+    }
+});
+
+
+
+
+
+
+
+
+
+
+
 
 app.use(function(req, res) {
     res.status(404).render('404');
