@@ -1,6 +1,9 @@
 const express = require('express');
 const { engine } = require('express-handlebars');
-const fs = require("fs");
+const sqlite3 = require('sqlite3');
+const bodyParser = require('body-parser');
+const session = require('express-session');
+const connectSqlite3 = require('connect-sqlite3')
 
 const port = 80;
 const app = express();
@@ -10,28 +13,80 @@ app.set('view engine', 'handlebars');
 app.set('views', './views');
 
 app.use(express.static('public'));
+
+//--------------
+// POST Forms
+//--------------
+app.use(bodyParser.urlencoded({ extended: false}));
+app.use(bodyParser.json());
+
+//-------------
+// SESSIONS
+//-------------
+const SQLiteStore = connectSqlite3(session);
+
+app.use(session({
+    store: new SQLiteStore({db: "session-db.db"}),
+    saveUninitialized: false,
+    resave: false,
+    secret: "This123IsASecret678Sentence"
+}));
+
+//-----------
+// DB
+//-----------
+const db = new sqlite3.Database('project.db');
+
+
+
+//---------------------------------------------------------------------------
+
+
 app.use((req, res, next) => {
     console.log("Req. URL: ", req.url);
     next();
 });
 
-const sqlite3 = require('sqlite3')
-const db = new sqlite3.Database('project.db')
-
-
-
-
-
 
 
 app.get('/', (req, res) => {
-    res.render('home');
+    console.log("SESSION: ", req.session);
+    const model = {
+        isLoggedIn: req.session.isLoggedIn,
+        name: req.session.name,
+        isAdmin: req.session.isAdmin
+    };
+    res.render('home.handlebars', model);
 });
 app.get('/about', (req, res) => {
     res.render('about');
 });
 app.get('/contact', (req, res) => {
     res.render('contact');
+});
+app.get('/login', (req, res) => {
+    const model ={};
+    res.render('login.handlebars', model);
+});
+app.post('/login', (req, res) => {
+    const un = req.body.un;
+    const pw = req.body.pw;
+    //console.log("LOGIN: ", un);
+    //console.log("PASSWORD: ", pw);
+    if (un=="abc" && pw=="abcd") {
+        console.log("login succsessfull");
+        req.session.isAdmin = true;
+        req.session.isLoggedIn = true;
+        req.session.name = "Abc";
+        res.redirect('/');
+    }
+    else {
+        console.log("Login failed");
+        req.session.isAdmin = false;
+        req.session.isLoggedIn = false;
+        req.session.name = "";
+        res.redirect('/login');
+    }
 });
 app.get('/partners', (req, res) => {
     db.all("SELECT * FROM businessPartners", (err, rows) => {
