@@ -65,3 +65,10 @@ nav a:hover {
 	display: flex;
 	flex-direction: column;
 }
+.flex-PartnerList-Container {
+	display: flex;
+	flex-direction: row;
+	/*justify-content: space-evenly;*/
+	flex-wrap: wrap;
+	gap: 20px;
+}

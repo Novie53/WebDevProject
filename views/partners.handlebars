@@ -11,10 +11,11 @@
         and
         efficient tractor tires that deliver exceptional performance in any terrain.
     </p>
-    <div class="flex-Container">
+    <div class="flex-PartnerList-Container">
         {{#each partnerList}}
         <div>
-            <img src="{{bImg}}" height="100px">
+            <a href="{{bLink}}"><img src="{{bImg}}" height="100px"></a>
+            <p>{{bDesc}}</p>
         </div>
         {{/each}}
     </div>
