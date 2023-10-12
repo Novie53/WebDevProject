@@ -11,9 +11,16 @@
             </nav>
         </div>
         <div id="right">
-            <nav>
-                <a href="/login">Loginaaaaaaaaaaaaa</a>
-            </nav>
+            {{#if isLoggedIn}}
+                <nav>
+                    Hi, {{name}}
+                    <a href="/logout">Logout</a>
+                </nav>
+            {{else}}
+                <nav>
+                    <a href="/login">Login</a>
+                </nav>
+            {{/if}}
         </div>
     </div>
 </div>

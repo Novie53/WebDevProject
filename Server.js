@@ -50,7 +50,6 @@ app.use((req, res, next) => {
 
 
 app.get('/', (req, res) => {
-    console.log("SESSION: ", req.session);
     const model = {
         isLoggedIn: req.session.isLoggedIn,
         name: req.session.name,
@@ -59,10 +58,20 @@ app.get('/', (req, res) => {
     res.render('home.handlebars', model);
 });
 app.get('/about', (req, res) => {
-    res.render('about');
+    const model = {
+        isLoggedIn: req.session.isLoggedIn,
+        name: req.session.name,
+        isAdmin: req.session.isAdmin
+    };
+    res.render('about.handlebars', model);
 });
 app.get('/contact', (req, res) => {
-    res.render('contact');
+    const model = {
+        isLoggedIn: req.session.isLoggedIn,
+        name: req.session.name,
+        isAdmin: req.session.isAdmin
+    };
+    res.render('contact.handlebars', model);
 });
 app.get('/login', (req, res) => {
     const model ={};
@@ -88,13 +97,24 @@ app.post('/login', (req, res) => {
         res.redirect('/login');
     }
 });
+app.get('/logout', (req, res) => {
+    req.session.destroy((err) => {
+        console.log("Error while destroying the session: ", err);
+    });
+    res.redirect('/');
+});
 app.get('/partners', (req, res) => {
     db.all("SELECT * FROM businessPartners", (err, rows) => {
         if (err) {
             res.status(500).json({ error: 'Server Error'});
         }
         else {
-            const model = {partnerList: rows};
+            const model = {
+                isLoggedIn: req.session.isLoggedIn,
+                name: req.session.name,
+                isAdmin: req.session.isAdmin,
+                partnerList: rows
+            };
             res.render('partners', model);
         }
     });
@@ -105,7 +125,12 @@ app.get('/products', (req, res) => {
             res.status(500).json({ error: 'Server Error'});
         }
         else {
-            const model = {productList: rows};
+            const model = {
+                isLoggedIn: req.session.isLoggedIn,
+                name: req.session.name,
+                isAdmin: req.session.isAdmin,
+                productList: rows
+            };
             res.render('products', model);
         }
     });
@@ -117,7 +142,12 @@ app.get('/product/:id', function(req, res) {
             res.status(500).json({ error: 'Server Error'});
         }
         else if (row) {
-            const model = row;
+            const model = {
+                isLoggedIn: req.session.isLoggedIn,
+                name: req.session.name,
+                isAdmin: req.session.isAdmin,
+                productData: row
+            };
             res.render("product", model);
         }
         else {
