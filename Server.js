@@ -167,9 +167,43 @@ app.get('/product/delete/:id', (req, res) => {
                 res.redirect('/products');
             }
         });
-    } else {
-        console.log("somebody without authentication tried to delete a product")
-        res.status(404).render('404');
+    }
+    else {
+        console.log("somebody without authentication tried to delete a product");
+        res.redirect('/');
+    }
+});
+app.get('/products/new', (req, res) => {
+    if (req.session.isLoggedIn == true && req.session.isAdmin == true) {
+        const model = {
+            isLoggedIn: req.session.isLoggedIn,
+            name: req.session.name,
+            isAdmin: req.session.isAdmin,
+        };
+        res.render('newproduct.handlebars', model);
+    }
+    else {
+        console.log("somebody without authentication tried to open the new product webpage");
+        res.redirect('/');
+    }
+});
+app.post('/products/new', (req, res) => {
+    if (req.session.isLoggedIn == true && req.session.isAdmin == true) {
+        const newProd = [req.body.prodName, req.body.prodDesc, req.body.prodImg];
+
+        db.run("INSERT INTO products (pName, pDesc, pImg) VALUES (?, ?, ?)", newProd, (error) => {
+            if (error) {
+                console.log("Error when trying to insert new product: ", error);
+            }
+            else {
+                console.log("a new product has been added to the products table!");
+            }
+        });
+        res.redirect('/products');
+    }
+    else {
+        console.log("somebody without authentication tried to create a new product");
+        res.redirect('/');
     }
 });
 

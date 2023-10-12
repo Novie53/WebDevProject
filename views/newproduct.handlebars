@@ -1,0 +1,32 @@
+<div class="main">
+    <div>
+        <h1>New Product</h1>
+        <div>
+            {{#if isLoggedIn}}
+                {{#if isAdmin}}
+                    <form action="/products/new" method="post">
+                        <fieldset>
+                            <label for="prodName">Product Name: </label>
+                            <input type="text" name="prodName" id="prodName" required="required">
+                            <br>
+                            <label for="prodDesc">Product description: </label>
+                            <textarea name="prodDesc" id="prodDesc" cols="30" rows="10" required="required"></textarea>
+                            <br>
+                            <label for="prodImg">Product image URL: </label>
+                            <input type="text" name="prodImg" id="prodImg" required="required">
+                            <br>
+                        </fieldset>
+                        <input type="submit" value="Add product">
+                    </form>
+                {{else}}
+                    <p>Sorry, you must be an administrator to add a new prodoct!</p>
+                {{/if}}
+            {{else}}
+                <p>
+                    Sorry, you must be logged in to add a new product!<br>
+                    Please got to the <a href="/login">login</a> page.
+                </p>
+            {{/if}}
+        </div>
+    </div>
+</div>
