@@ -203,7 +203,7 @@ app.post('/products/new', (req, res) => {
     if (req.session.isLoggedIn == true && req.session.isAdmin == true) {
         const newProd = [req.body.prodName, req.body.prodDesc, req.body.prodImg];
 
-        db.run("INSERT INTO products (pName, pDesc, pImg) VALUES (?, ?, ?)", newProd, (error) => {
+        db.run("INSERT INTO products (pName, pDesc, pImg) VALUES (?, ?, ?)", [newProd], (error) => {
             if (error) {
                 console.log("Error when trying to insert new product: ", error);
             }
@@ -242,7 +242,7 @@ app.post('/product/update/:id', (req, res) => {
     if (req.session.isLoggedIn == true && req.session.isAdmin == true) {
         const id = req.params.id;
         const modifiedProd = [req.body.prodName, req.body.prodDesc, req.body.prodImg, id];
-        db.run("UPDATE products SET pName = ?, pDesc = ?, pImg = ? WHERE pID = ?", modifiedProd, (error) => {
+        db.run("UPDATE products SET pName = ?, pDesc = ?, pImg = ? WHERE pID = ?", [modifiedProd], (error) => {
             if (error) {
                 console.log("Error: ", error);
             } else {
