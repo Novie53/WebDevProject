@@ -3,7 +3,7 @@ const db = new sqlite3.Database('project.db')
 
 
 
-db.run("CREATE TABLE users (pid INTEGER PRIMARY KEY, userName TEXT NOT NULL, password TEXT NOT NULL, accessLevel INTEGER)", (error) => {
+db.run("CREATE TABLE users (pid INTEGER PRIMARY KEY, userName TEXT NOT NULL, password TEXT NOT NULL, accessLevel INTEGER, displayName TEXT NOT NULL)", (error) => {
     if (error) {
         console.log("Error when creating users table: ", error);
     }
@@ -12,19 +12,20 @@ db.run("CREATE TABLE users (pid INTEGER PRIMARY KEY, userName TEXT NOT NULL, pas
     }
 
     const users = [
-        {"id":0, "userName":"admin", "password":"pass","accessLevel":99},
-        {"id":1, "userName":"user1", "password":"pass1","accessLevel":1},
-        {"id":2, "userName":"user2", "password":"pass2","accessLevel":1},
-        {"id":3, "userName":"user3", "password":"pass3","accessLevel":1},
-        {"id":4, "userName":"user4", "password":"pass4","accessLevel":1},
-        {"id":5, "userName":"user5", "password":"pass5","accessLevel":1}
+        {"id":0, "userName":"admin", "password":"password","accessLevel":99, "displayName": "David"},
+        {"id":1, "userName":"user1", "password":"pass","accessLevel":1, "displayName": "Oliver"},
+        {"id":2, "userName":"user2", "password":"pass","accessLevel":1, "displayName": "Francis"},
+        {"id":3, "userName":"user3", "password":"pass","accessLevel":1, "displayName": "Ann"},
+        {"id":4, "userName":"user4", "password":"pass","accessLevel":1, "displayName": "Rebecka"},
+        {"id":5, "userName":"user5", "password":"pass","accessLevel":1, "displayName": "Isak"}
     ]
     users.forEach((user) => {
-        db.run("INSERT INTO users (pid, userName, password, accessLevel) VALUES (?, ?, ?, ?)", [
+        db.run("INSERT INTO users (pid, userName, password, accessLevel, displayName) VALUES (?, ?, ?, ?, ?)", [
             user.id,
             user.userName,
             user.password,
-            user.accessLevel], (error) => {
+            user.accessLevel,
+			user.displayName], (error) => {
                 if (error) {
                     console.log("Error when inserting user into users table: ", error)
                 }

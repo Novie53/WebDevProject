@@ -80,26 +80,37 @@ app.get('/login', (req, res) => {
 app.post('/login', (req, res) => {
     const un = req.body.un;
     const pw = req.body.pw;
-    //console.log("LOGIN: ", un);
-    //console.log("PASSWORD: ", pw);
-    if (un=="abc" && pw=="abcd") {
-        console.log("login succsessfull");
-        req.session.isAdmin = true;
-        req.session.isLoggedIn = true;
-        req.session.name = "Abc";
-        res.redirect('/');
-    }
-    else {
-        console.log("Login failed");
-        req.session.isAdmin = false;
-        req.session.isLoggedIn = false;
-        req.session.name = "";
-        res.redirect('/login');
-    }
+
+    db.get("SELECT * FROM users WHERE userName = ?", [un], (error, user) =>{
+        if (error) {
+            res.status(500).send({ error: "Server Error"});
+        } else if (!user) {
+            req.session.isAdmin = false;
+            req.session.isLoggedIn = false;
+            req.session.name = "";
+            res.render('login.handlebars', { loginFailed: true });
+        }
+        else {
+            if (user.password == pw) {
+                req.session.isLoggedIn = true;
+                req.session.name = user.displayName;
+                req.session.isAdmin = user.accessLevel >= 10;
+                res.redirect('/');
+            }
+            else {
+                req.session.isAdmin = false;
+                req.session.isLoggedIn = false;
+                req.session.name = "";
+                res.render('login.handlebars', { loginFailed: true });
+            }
+        }
+    });
 });
 app.get('/logout', (req, res) => {
     req.session.destroy((err) => {
-        console.log("Error while destroying the session: ", err);
+        if (err) {
+            console.log("Error while destroying the session: ", err);
+        }
     });
     res.redirect('/');
 });
