@@ -4,6 +4,7 @@ const sqlite3 = require('sqlite3');
 const bodyParser = require('body-parser');
 const session = require('express-session');
 const connectSqlite3 = require('connect-sqlite3')
+const bcrypt = require('bcrypt');
 
 const port = 80;
 const app = express();
@@ -91,7 +92,7 @@ app.post('/login', (req, res) => {
             res.render('login.handlebars', { loginFailed: true });
         }
         else {
-            if (user.password == pw) {
+            if (bcrypt.compareSync(pw, user.passwordHash)) {
                 req.session.isLoggedIn = true;
                 req.session.name = user.displayName;
                 req.session.isAdmin = user.accessLevel >= 10;
