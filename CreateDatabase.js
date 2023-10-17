@@ -5,7 +5,7 @@ const bcrypt = require('bcrypt');
 
 
 db.run(`CREATE TABLE users (
-        pid INTEGER PRIMARY KEY,
+        pID INTEGER PRIMARY KEY,
         userName TEXT NOT NULL,
         passwordHash TEXT NOT NULL,
         accessLevel INTEGER,
@@ -26,7 +26,7 @@ db.run(`CREATE TABLE users (
         {"id":5, "userName":"user5", "password":"pass","accessLevel":1, "displayName": "Isak"}
     ]
     users.forEach((user) => {
-        db.run("INSERT INTO users (pid, userName, passwordHash, accessLevel, displayName) VALUES (?, ?, ?, ?, ?)", [
+        db.run("INSERT INTO users (pID, userName, passwordHash, accessLevel, displayName) VALUES (?, ?, ?, ?, ?)", [
             user.id,
             user.userName,
             bcrypt.hashSync(user.password, 10),

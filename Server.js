@@ -6,7 +6,7 @@ const session = require('express-session');
 const connectSqlite3 = require('connect-sqlite3')
 const bcrypt = require('bcrypt');
 
-const port = 80;
+const port = 8080;
 const app = express();
 
 app.engine('handlebars', engine());
@@ -192,7 +192,7 @@ app.get('/products/new', (req, res) => {
             name: req.session.name,
             isAdmin: req.session.isAdmin,
         };
-        res.render('newproduct.handlebars', model);
+        res.render('newProduct.handlebars', model);
     }
     else {
         console.log("somebody without authentication tried to open the new product webpage");
